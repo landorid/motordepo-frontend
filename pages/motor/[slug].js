@@ -1,19 +1,34 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
+
 import motorService from "../../services/motorService";
 import { SITE_NAME } from "../../constants";
+import Page from "../../layout/Page";
 
 function Motor(props) {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Motor betöltése...</div>;
+  }
+
   const { motor } = props;
   const name = `${motor?.marka} ${motor?.tipus} ${motor?.kivitel} ${motor?.gyartas_ev}`;
+  console.log(motor.galeria);
   return (
-    <div>
+    <Page>
       <Head>
         <title>
           Eladó {motor ? name : "használt motor"} - {SITE_NAME}
         </title>
         <meta property="og:title" content="My page title" key="title" />
       </Head>
-    </div>
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-8">ez az egész fasza itt</div>
+        <div className="col-span-4">
+          <h1 className="font-bold text-2xl">{name}</h1>
+        </div>
+      </div>
+    </Page>
   );
 }
 
