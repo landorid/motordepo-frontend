@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["img1.vetrinamotori.it"],
+    deviceSizes: [245, 500, 750, 1000],
   },
 };
