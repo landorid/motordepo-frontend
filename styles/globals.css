@@ -27,3 +27,16 @@ body, html {
     @apply h-full w-full min-h-full bg-grey-100
 }
 
+.slick-track {
+    margin: 0 !important;
+}
+
+.slick-slide.slick-active .navigation {
+    opacity: 80%;
+    border: solid 1px transparent;
+}
+
+.slick-slide.slick-current .navigation {
+    opacity: 100%;
+    border: solid 1px white
+}
