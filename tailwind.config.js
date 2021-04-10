@@ -9,8 +9,13 @@ module.exports = {
       red: colors.red,
       white: colors.white,
       green: colors.green,
+      black: colors.black,
     },
-    extend: {},
+    extend: {
+      height: {
+        gallery: 470,
+      },
+    },
     container: {
       center: true,
       screens: {

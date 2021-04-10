@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    @responsive {
+        .column-count-2 {
+            column-count: 2;
+        }
+    }
+}
+
+@layer components {
+    .btn {
+        @apply py-2 px-4 font-semibold rounded transition-colors flex
+    }
+    .btn-primary{
+        @apply bg-red-500 text-white hover:bg-opacity-70 focus:outline-none;
+    }
+
+    .btn-secondary{
+        @apply bg-white border border-grey-200 text-red-500 hover:bg-red-50 hover:border-red-500 focus:outline-none;
+    }
+}
+
 body, html {
     @apply h-full w-full min-h-full bg-grey-100
 }
