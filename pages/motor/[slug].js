@@ -55,7 +55,7 @@ function Motor(props) {
           <Details motor={motor} />
           <div className="border-b-2 border-grey-100 mt-auto pt-6" />
           <p className="font-bold text-lg mt-6 mb-4">A hirdetés feladója</p>
-          <EladoProfile elado={elado} />
+          <EladoProfile elado={elado} telefonszam={motor.telefonszam} />
         </div>
       </div>
     </Page>

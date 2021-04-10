@@ -1,13 +1,49 @@
-import Link from "next/link";
+import * as PropTypes from "prop-types";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
+import { useState } from "react";
+import Link from "next/link";
 
 import { eladoType } from "../../constants/types";
 import { setHttp } from "../../utils";
+import Modal from "../Modal";
 
-function EladoProfile({ elado }) {
+function EladoProfile({ elado, telefonszam }) {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+
   return (
     <div className="rounded border-grey-100 border p-2">
+      <Modal status={open} onClose={handleClose}>
+        <p className="font-bold text-center mb-4">Vásárolj biztonságosan!</p>
+        <p className="text-center leading-tight text-grey-500">
+          Ha lehetséges, személyesen találkozz az eladóval a vásárlás során.
+          Soha ne utald el előre a vételárat.
+        </p>
+        <div className="flex flex-col items-center">
+          <a
+            href={`tel:${telefonszam}`}
+            className="flex justify-center items-center mt-4 hover:bg-grey-100 py-2 px-6 rounded-lg transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-grey-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            <span className="ml-2 text-3xl">{telefonszam}</span>
+          </a>
+        </div>
+      </Modal>
       <div className="flex border-b border-grey-100 pb-2">
         <p className="p-2">
           <Link href={`/elado/${elado.id}`}>
@@ -59,7 +95,7 @@ function EladoProfile({ elado }) {
           </svg>
           Üzenetet írok
         </button>
-        <button className="btn btn-secondary">
+        <button className="btn btn-secondary" onClick={handleOpen}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 sm:mr-2"
@@ -83,6 +119,7 @@ function EladoProfile({ elado }) {
 
 EladoProfile.propTypes = {
   elado: eladoType,
+  telefonszam: PropTypes.string,
 };
 
 export default EladoProfile;
