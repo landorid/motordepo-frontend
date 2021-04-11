@@ -10,6 +10,7 @@ module.exports = {
       white: colors.white,
       green: colors.green,
       black: colors.black,
+      transparent: "transparent",
     },
     extend: {
       height: {

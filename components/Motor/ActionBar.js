@@ -2,10 +2,22 @@ import PropTypes from "prop-types";
 import formatDistance from "date-fns/formatDistance";
 import parseISO from "date-fns/parseISO";
 import huLocale from "date-fns/locale/hu";
+import { useState } from "react";
+import Modal from "../Modal";
 
 function ActionBar(props) {
+  const [share, setShare] = useState(false);
+  const handleOpen = () => setShare(true);
+  const handleClose = () => setShare(false);
+
   return (
     <div className="flex justify-between align-center border-b-2 border-grey-100 pb-4 mb-4">
+      <Modal status={share} onClose={handleClose}>
+        <p className="font-bold text-lg">Oszd meg a hirdetést bárkivel!</p>
+        <p className="text-grey-500">
+          A hirdetés megosztásával növeled az üzletkötés esélyét.
+        </p>
+      </Modal>
       <div className="leading-none">
         <span className="text-grey-500 text-xs uppercase">Feladva</span>
         <span className="flex align-center text-grey-700">
@@ -18,7 +30,7 @@ function ActionBar(props) {
       <div className="flex">
         <button
           type="button"
-          onClick={() => alert("megosztás")}
+          onClick={handleOpen}
           className="flex p-2 rounded-md hover:bg-grey-100 focus:outline-none transition-colors"
         >
           <span className="sr-only">Megosztás</span>
@@ -39,7 +51,7 @@ function ActionBar(props) {
         </button>
         <button
           type="button"
-          onClick={() => alert("megosztás")}
+          onClick={() => alert("kedvencek")}
           className="flex p-2 rounded-md hover:bg-grey-100 focus:outline-none transition-colors"
         >
           <span className="sr-only">Hozzáadás a kedvencekhez</span>

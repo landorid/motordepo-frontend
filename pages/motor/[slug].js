@@ -44,7 +44,7 @@ function Motor(props) {
         <div className="col-span-12 md:col-span-4 p-4 flex flex-col pb-0">
           <ActionBar id={motor.id} created_at={motor.created_at} />
           <h1 className="font-bold text-2xl leading-tight">{name}</h1>
-          <Location city={motor.varos} state={motor.megye} distance={15} />
+          <Location city={motor.varos} state={motor.megye} />
           <p className="text-red-500 font-bold text-2xl my-8">
             {price.format(motor.ar)}
           </p>
