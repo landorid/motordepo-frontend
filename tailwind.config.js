@@ -5,7 +5,7 @@ module.exports = {
   darkMode: false,
   theme: {
     colors: {
-      grey: colors.blueGray,
+      grey: colors.warmGray,
       red: colors.red,
       white: colors.white,
       green: colors.green,
@@ -30,5 +30,5 @@ module.exports = {
     extend: {},
     container: [],
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
