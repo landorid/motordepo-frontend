@@ -10,6 +10,7 @@ import ActionBar from "../../components/Motor/ActionBar";
 import Details from "../../components/Motor/Details";
 import EladoMeta from "../../components/Motor/EladoMeta";
 import EladoProfile from "../../components/Motor/EladoProfile";
+import { formatPrice } from "../../utils";
 
 function Motor(props) {
   const router = useRouter();
@@ -23,12 +24,6 @@ function Motor(props) {
   const name = `${motor?.marka} ${motor?.tipus} ${motor?.kivitel} ${motor?.gyartas_ev}`;
 
   const images = motor.galeria.filter((file) => file.mime.match(/image/));
-  const price = new Intl.NumberFormat("hu-HU", {
-    style: "currency",
-    currency: "HUF",
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
-  });
 
   return (
     <Page>
@@ -46,7 +41,7 @@ function Motor(props) {
           <h1 className="font-bold text-2xl leading-tight">{name}</h1>
           <Location city={motor.varos} state={motor.megye} />
           <p className="text-red-500 font-bold text-2xl my-8">
-            {price.format(motor.ar)}
+            {formatPrice(motor.ar)}
           </p>
           <EladoMeta elado={elado} />
           <div className="border-b-2 border-grey-100 pt-6" />
