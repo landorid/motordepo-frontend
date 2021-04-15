@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef, memo } from "react";
 import { Listbox, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
-function MultiSelect({ options, label, selected, onChange }) {
+function MultiSelect({ options, name, label, selected, onChange }) {
   const node = useRef();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,7 +22,7 @@ function MultiSelect({ options, label, selected, onChange }) {
   function handleSelect(value) {
     if (!isSelected(value)) {
       const selectedUpdated = [...selected, options.find((el) => el === value)];
-      onChange(selectedUpdated);
+      onChange(name, selectedUpdated);
     } else {
       handleDeselect(value);
     }
@@ -30,7 +31,7 @@ function MultiSelect({ options, label, selected, onChange }) {
 
   function handleDeselect(value) {
     const selectedUpdated = selected.filter((el) => el !== value);
-    onChange(selectedUpdated);
+    onChange(name, selectedUpdated);
     setIsOpen(true);
   }
 
@@ -41,38 +42,28 @@ function MultiSelect({ options, label, selected, onChange }) {
     setIsOpen(false);
   };
 
-  const Btn = () => {
+  const Btn = forwardRef((props, ref) => {
     return (
       <button
         className={`cursor-default relative w-full border rounded-md bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue  transition ease-in-out duration-150 sm:text-sm sm:leading-5 ${
           isOpen ? "border-red-500 ring-red-500 ring-1" : "border-grey-300"
         }`}
         onClick={() => setIsOpen(!isOpen)}
+        ref={ref}
+        type="button"
       >
         <span className="block truncate">
           {selected.length < 1 ? "Mindegy" : selected.sort().join(", ")}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-          <svg
-            className="h-5 w-5 text-grey-400"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              d="M7 7l3-3 3 3m0 6l-3 3-3-3"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ChevronDownIcon className="h-5 w-5 text-grey-400" />
         </span>
       </button>
     );
-  };
+  });
 
   return (
-    <div className="w-full mx-auto" ref={node}>
+    <div className="w-full mx-auto mb-2" ref={node}>
       <Listbox
         as="div"
         className="space-y-1"
@@ -161,9 +152,10 @@ function MultiSelect({ options, label, selected, onChange }) {
 }
 
 MultiSelect.propTypes = {
+  name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   selected: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
 };
-export default MultiSelect;
+export default memo(MultiSelect);
