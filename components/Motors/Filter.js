@@ -75,6 +75,7 @@ function Filter({ onChange }) {
         string: filtersString,
         query: queryString,
         values: values,
+        status: false,
       });
     },
   });

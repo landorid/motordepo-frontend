@@ -10,6 +10,8 @@ import ProductItem from "../../components/ProductItem";
 import { MARKA } from "../../constants";
 import Pagination from "../../components/Pagination";
 import SortBy from "../../components/Motors/SortBy";
+import Drawer from "../../components/Drawer";
+import Result from "../../components/Motors/Result";
 
 const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
@@ -30,24 +32,12 @@ export default function Motorok(props) {
     string: props.marka ? `marka:${props.marka}` : "",
     query: query ? query : "",
     values: {},
+    status: false,
   });
 
   const createURL = (state, filters) => {
     const markaPath = filters?.marka ? `${filters?.marka}/` : "";
-    // const queryParameters = {};
-    // if (state.query) {
-    //   queryParameters.query = encodeURIComponent(state.query);
-    // }
-    // if (state.page !== 1) {
-    //   queryParameters.page = state.page;
-    // }
 
-    // const queryString = qs.stringify(queryParameters, {
-    //   addQueryPrefix: true,
-    //   arrayFormat: "repeat",
-    // });
-
-    // return `/motorok/${markaPath}${queryString}`;
     return `/motorok/${markaPath}`;
   };
 
@@ -64,12 +54,8 @@ export default function Motorok(props) {
     setSearchState(searchState);
   };
 
-  const ResultProduct = ({ hit }) => (
-    <ProductItem
-      {...hit}
-      tavolsag={Math.floor(hit._rankingInfo.geoDistance / 1000)}
-    />
-  );
+  const handleFilterOpen = () => setFilters({ ...filters, status: true });
+  const handleFilterClose = () => setFilters({ ...filters, status: false });
 
   return (
     <Page>
@@ -89,38 +75,51 @@ export default function Motorok(props) {
 
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-3">
-            <Filter onChange={setFilters} />
+            <div className="hidden sm:block">
+              <Filter onChange={setFilters} />
+            </div>
+            <Drawer onClose={handleFilterClose} status={filters.status}>
+              <Filter onChange={setFilters} />
+            </Drawer>
           </div>
           <div className="col-span-12 md:col-span-9">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2 justify-between mb-4">
               <Stats
-                className="text-grey-500 font-semibold text-sm ml-4"
+                className="text-grey-500 font-semibold text-sm ml-4 hidden sm:block"
                 translations={{
                   stats(nbHits) {
                     return `${nbHits.toLocaleString()} találat`;
                   },
                 }}
               />
+              <div className="block sm:hidden">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleFilterOpen}
+                >
+                  Szűrés
+                </button>
+              </div>
               <SortBy
                 defaultRefinement="development_motor"
                 items={[
                   {
                     value: "development_motor",
-                    label: "Vételár szerint növekvő sorrend",
+                    label: "Vételár szerint növekvő",
                   },
                   {
                     value: "development_motor_ar_desc",
-                    label: "Vételár szerint csökkenő sorrend",
+                    label: "Vételár szerint csökkenő",
                   },
                   {
                     value: "development_motor_tavolsag_asc",
-                    label: "Távolság szerint növekvő sorrend",
+                    label: "Távolság szerint növekvő",
                   },
                 ]}
               />
             </div>
-            <Hits hitComponent={ResultProduct} />
-
+            <Result />
             <Pagination />
             {/*<PoweredBy />*/}
           </div>

@@ -26,8 +26,8 @@ function ProductItem({
   const name = `${marka} ${tipus} ${kivitel}`;
   return (
     <Link href={`/motor/${slug}`}>
-      <a className="rounded border border-grey-200 p-3 m-auto flex mb-2 relative bg-white">
-        <figure className="w-52 h-36 relative border border-grey-200">
+      <a className="rounded border border-grey-200 p-1 sm:p-3 m-auto flex flex-col sm:flex-row mb-2 relative bg-white">
+        <figure className="w-full sm:w-52 mb-2 sm:mb-0 h-36 relative border border-grey-200">
           {/*<StrapiImage*/}
           {/*  src={galeria[0]}*/}
           {/*  alt={name}*/}
@@ -65,7 +65,7 @@ function ProductItem({
             {formatPrice(ar)}
           </p>
         </div>
-        <div className="absolute right-3 top-3">
+        <div className="absolute right-3 bottom-3 sm:bottom-auto sm:top-3">
           <StarIcon className="w-8 h-8 text-red-500" />
         </div>
       </a>
