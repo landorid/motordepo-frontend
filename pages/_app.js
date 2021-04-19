@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
     <div className="bg-grey-100 h-full w-full flex flex-col">
       <Header />
       <Component {...pageProps} />
+      <footer className="h-64" />
     </div>
   );
 }
