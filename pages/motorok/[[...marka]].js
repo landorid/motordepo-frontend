@@ -12,6 +12,7 @@ import Pagination from "../../components/Pagination";
 import SortBy from "../../components/Motors/SortBy";
 import Drawer from "../../components/Drawer";
 import Result from "../../components/Motors/Result";
+import BannerAd from "../../components/BannerAd";
 
 const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
@@ -59,6 +60,7 @@ export default function Motorok(props) {
 
   return (
     <Page>
+      <BannerAd />
       <InstantSearch
         indexName="development_motor"
         searchClient={algoliaClient}
@@ -73,7 +75,7 @@ export default function Motorok(props) {
           query={filters.query}
         />
 
-        <div className="grid grid-cols-12 gap-4">
+        <div className="grid grid-cols-12 gap-4 mt-4">
           <div className="col-span-12 md:col-span-3">
             <div className="hidden sm:block">
               <Filter onChange={setFilters} />
