@@ -1,7 +1,7 @@
+import Image from "next/Image";
+
 function BannerAd() {
-  return (
-    <img src="https://s0.2mdn.net/10776317/TLN_SZIKRA_HSO_SMGA32_Traffic_970x250_static.jpg" />
-  );
+  return <Image src="/ad.jpg" width={970} height={250} quality={100} />;
 }
 
 export default BannerAd;
