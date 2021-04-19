@@ -35,7 +35,7 @@ function Filter({ onChange }) {
       hengerurtartalom: { min: "", max: "" },
       km: { min: "", max: "" },
       teljesitmeny: "",
-      teljesitmeny_unit: "LE",
+      teljesitmeny_unit: "le",
       munkautem: "",
       sebessegvalto: "",
       okmanyok: "",
@@ -56,11 +56,12 @@ function Filter({ onChange }) {
         values.hengerurtartalom
       );
       addRangeItemToFilter(filters, "km", values.km);
-      addSingleItemToFilter(filters, "teljesitmeny", values.teljesitmeny);
+      // addSingleItemToFilter(filters, "teljesitmeny", values.teljesitmeny);
       addSingleItemToFilter(
         filters,
-        `teljesitmeny${values.teljesitmeny_unit}`,
-        values.teljesitmeny
+        `teljesitmeny_${values.teljesitmeny_unit}`,
+        values.teljesitmeny,
+        true
       );
       addSingleItemToFilter(filters, "munkautem", values.munkautem);
       addSingleItemToFilter(filters, "sebessegvalto", values.sebessegvalto);
@@ -219,8 +220,8 @@ function Filter({ onChange }) {
               value={formik.values.teljesitmeny_unit}
               className="focus:ring-red-500 focus:border-red-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-grey-500 sm:text-sm rounded-md"
             >
-              <option>LE</option>
-              <option>kW</option>
+              <option value="le">LE</option>
+              <option value="kw">kW</option>
             </select>
           </div>
         </div>
