@@ -18,10 +18,14 @@ export const formatPrice = (price) => {
   return client.format(price);
 };
 
-export const addSingleItemToFilter = (filterArray, name, value) => {
+export const addSingleItemToFilter = (filterArray, name, value, number) => {
   if (!value) return;
 
-  filterArray.push(`${name}: ${value}`);
+  if (number) {
+    filterArray.push(`${name}: ${value}`);
+  } else {
+    filterArray.push(`${name}: "${value}"`);
+  }
 };
 
 export const addMultiItemToFilter = (filterArray, name, values) => {
